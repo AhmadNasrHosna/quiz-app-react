@@ -1,8 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
-
+import QuizForm from "./components/QuizForm";
 function Home() {
-  return <Link to="/quiz">Start Quiz</Link>;
+  return <QuizForm />;
 }
 
 export default Home;

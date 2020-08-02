@@ -26,7 +26,7 @@ h1 {
   font-weight: 900;
   letter-spacing: -0.04em;
   margin-top: 0;
-  color: #fff
+  color: #fff;
 }
 
 .o-page {
@@ -139,4 +139,107 @@ h1 {
   border: 3px solid #222;
   background: #cc6f87;
   color: #fff;
+}
+
+.c-quiz-form {
+  border: 4px solid #222;
+  max-width: 400px;
+  margin: 0 auto;
+  border-radius: 10px;
+  background: #fff;
+  padding: 0;
+  line-height: 2;
+  overflow: hidden;
+  box-shadow: 0 21px 41px hsl(111, 45%, 30%, 0.6);
+}
+
+.c-quiz-form input[type="text"] {
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  border: 0;
+  border-bottom: 4px solid hsl(24, 78%, 70%, 1);
+  background: #fff;
+  height: 100%;
+  display: block;
+  line-height: 1;
+  padding: 2rem 1rem;
+  outline: none;
+  text-align: center;
+  font: inherit;
+  font-weight: 500;
+  color: #222222;
+  transition: all 200ms ease;
+}
+
+.c-quiz-form input[type="text"]:hover {
+  background: #dadada;
+}
+
+input[type="submit"] {
+  display: block;
+  width: 100%;
+  border: 0;
+  font: inherit;
+  background: #773f81;
+  font-weight: 900;
+  font-size: 23px;
+  letter-spacing: -0.04em;
+  color: #fff;
+  outline: 0;
+  cursor: pointer;
+  border-top: 4px solid #eaeaea;
+  border-top: 4px solid hsl(291, 34%, 83%, 1);
+}
+input[type="submit"]:active {
+  background: hsl(291, 34%, 32%, 1)
+}
+
+.c-quiz-form__group:not(:first-child) {
+  display: flex;
+}
+
+.c-quiz-form__group:nth-of-type(2) {
+  border-bottom: 4px solid hsl(24, 90%, 89%, 1);
+}
+
+.c-radio {
+  flex: 0 0 33.333%;
+  max-width: 33.333%;
+  user-select: none;
+  -webkit-user-drag: none;
+  position: relative;
+  height: 50px;
+}
+
+.c-radio label {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: hsl(24, 73%, 95%, 1);
+  left: 0;
+  top: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  transition: all 150ms ease;
+  color: #6c6c6c;
+}
+
+.c-radio label:hover {
+  color: #4c4c4c;
+
+  background: hsl(24, 78%, 70%, 1);
+}
+
+.c-radio label:active {
+  background: hsl(24, 78%, 63%, 1);
+}
+
+input[type=radio]:checked + label {
+  background: hsl(24, 78%, 70%, 1);
+    color: #4c4c4c;
+
 }

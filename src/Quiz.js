@@ -3,6 +3,8 @@ import React, { useEffect, useContext, useState } from "react";
 import DispatchContext from "./DispatchContext";
 import StateContext from "./StateContext";
 import Questionnaire from "./components/Questionnaire";
+import Statistics from "./components/Statistics";
+
 import { shuffle } from "./helpers";
 
 const API_URL =
@@ -43,7 +45,7 @@ function Quiz() {
     const isCorrectAnswer = answer === questions[currentIndex].correct_answer;
     let changeQuestionTimerID;
 
-    // Show status of answer
+    // Show status of answer and prevent doubled answers
     setChoosedYet(true);
     setShowStatus(true);
 
@@ -68,8 +70,8 @@ function Quiz() {
     }, 1000);
   }
 
-  if (currentIndex === 10) {
-    return <h2>Your Score: {score}</h2>;
+  if (currentIndex === questions.length) {
+    return <Statistics score={score} />;
   }
 
   return (
