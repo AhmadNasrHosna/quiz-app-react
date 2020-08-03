@@ -8,19 +8,19 @@ function Statistics() {
   const { quiz, score } = useContext(StateContext);
 
   const socialImage = getShareImage({
-    title: "How to be a x developer",
-    tagline: "Learn all the tips from this one post",
+    title: `History Quiz Score:`,
+    tagline: `${score}/10`,
     cloudName: "dts7bwydo",
-    imagePublicID: "social-share-template.jpg",
-    titleFont: "Tahoma",
+    imagePublicID: "social-share-template",
+    font: "'IBM Plex Sans'",
+    textColor: "fff",
     titleExtraConfig: "_bold",
-    taglineFont: "Roboto",
   });
 
   return (
     <>
       <Helmet>
-        <title>My Title</title>
+        <title>{`History Quiz Score: ${score}/10`}</title>
         <meta name="image" content={socialImage} />
 
         {/* OpenGraph tags */}

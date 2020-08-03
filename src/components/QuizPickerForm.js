@@ -19,7 +19,7 @@ function QuizPickerForm() {
     e.preventDefault();
     const quizId = slugify(
       username,
-      `${quizOptions.category}-${quizOptions.difficulty}-`
+      `${quizOptions.category}-${quizOptions.difficulty}`
     );
     push(`quiz/${quizId}`);
   }

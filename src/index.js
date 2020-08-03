@@ -21,6 +21,7 @@ function App() {
     loggedIn: Boolean(localStorage.getItem("writescapeLoggedInUser")),
     user: JSON.parse(localStorage.getItem("writescapeLoggedInUser")) || {},
     flashMessages: [],
+    username: "",
     quiz: {
       category: "",
       difficulty: "",
