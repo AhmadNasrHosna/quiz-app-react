@@ -16,9 +16,14 @@ body {
   );
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+a {
+  color: inherit;
+  text-decoration: none;
+  background: hsl(286deg 32% 37%);
+  padding: 0.3em 0.75em;
+  border-radius: 3px;
+  display: inline-block;
+  color: #fff;
 }
 
 h1 {
@@ -141,6 +146,10 @@ h1 {
   color: #fff;
 }
 
+.c-quiz {
+  margin-bottom: 2rem;
+}
+
 .c-quiz-form {
   border: 4px solid #222;
   max-width: 400px;
@@ -242,4 +251,3 @@ input[type="radio"]:checked + label {
   background: hsl(24, 78%, 70%, 1);
   color: #4c4c4c;
 }
-

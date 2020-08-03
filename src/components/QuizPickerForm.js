@@ -1,26 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { slugify } from "../helpers";
 import { useHistory } from "react-router-dom";
+import DispatchContext from "../DispatchContext";
 
 function QuizPickerForm() {
   const { push } = useHistory();
-
   const [username, setUsername] = useState("");
+  const appDispatch = useContext(DispatchContext);
   const [quizOptions, setQuizOptions] = useState({
     category: "23",
     difficulty: "easy",
   });
 
-  const API_URL = `https://opentdb.com/api.php?amount=10&category=${quizOptions.category}&difficulty=${quizOptions.difficulty}&type=multiple`;
-
-  console.log(quizOptions);
+  function getCategoryName() {
+    switch (quizOptions.category) {
+      case "11":
+        return [11, "Movies"];
+      case "18":
+        return [18, "Computers"];
+      case "23":
+        return [23, "History"];
+      default:
+        return;
+    }
+  }
 
   function handleQuizFormSubmit(e) {
     e.preventDefault();
-    const quizId = slugify(
-      username,
-      `${quizOptions.category}-${quizOptions.difficulty}`
-    );
+    const quizId = slugify(quizOptions);
+
+    appDispatch({
+      type: "updateInitialStatistics",
+      value: {
+        username: username,
+        category: getCategoryName(),
+        difficulty: quizOptions.difficulty,
+        date: new Date(Date.now()),
+        timeStart: Date.now(),
+        quizId: quizId,
+      },
+    });
+
+    // Ready? message
+    appDispatch({
+      type: "flashMessage",
+      value: "Are you ready? :)",
+      status: "success",
+    });
+
     push(`quiz/${quizId}`);
   }
 
@@ -58,8 +85,8 @@ function QuizPickerForm() {
           <label htmlFor="history">History</label>
         </div>
         <div className="c-radio">
-          <input type="radio" id="math" name="category" value="19" />
-          <label htmlFor="math">Math</label>
+          <input type="radio" id="computers" name="category" value="18" />
+          <label htmlFor="computers">Computers</label>
         </div>
         <div className="c-radio">
           <input type="radio" id="movies" name="category" value="11" />

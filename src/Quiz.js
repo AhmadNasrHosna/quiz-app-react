@@ -1,27 +1,28 @@
 import React, { useEffect, useContext, useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation, useParams, Link } from "react-router-dom";
 
 import DispatchContext from "./DispatchContext";
 import StateContext from "./StateContext";
 import Questionnaire from "./components/Questionnaire";
 
 import { shuffle } from "./helpers";
-
-const API_URL =
-  "https://opentdb.com/api.php?amount=10&category=11&difficulty=easy&type=multiple";
+import firebase from "./base";
 
 function Quiz() {
   const { push } = useHistory();
   const { pathname } = useLocation();
+  const { quizId } = useParams();
 
   const appDispatch = useContext(DispatchContext);
   const appState = useContext(StateContext);
   const [questions, setQuestions] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [score, setScore] = useState(0);
   const [questionCounter, setQuestionCounter] = useState(1);
   const [showStatus, setShowStatus] = useState(false);
   const [choosedYet, setChoosedYet] = useState(false);
+  const statistics = useStatistics();
+
+  const API_URL = `https://opentdb.com/api.php?amount=10&category=${appState.initialStatistics.category[0]}&difficulty=${appState.initialStatistics.difficulty}&type=multiple`;
 
   // Send off a network request to API to get the questions
   useEffect(() => {
@@ -42,6 +43,27 @@ function Quiz() {
         setQuestions(questionsWithShuffledAnswers);
       });
   }, []);
+
+  function useStatistics() {
+    const [statistics, setStatistics] = useState([]);
+
+    useEffect(() => {
+      firebase
+        .firestore()
+        .collection(quizId)
+        .onSnapshot((snapshot) => {
+          const newStatistics = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          setStatistics(newStatistics);
+        });
+    }, []);
+
+    return statistics;
+  }
+
+  console.log(statistics);
 
   // Track the answers
   function handleAnswer(answer) {
@@ -118,9 +140,10 @@ function Quiz() {
           chooseYet={choosedYet}
         />
         <div className="c-score">
-          <p>{appState.score}</p>
+          <p>{appState.initialStatistics.score}</p>
         </div>
       </div>
+      <Link to="/">Choose another challenge?</Link>
     </> //
   );
 }

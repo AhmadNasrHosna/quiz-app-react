@@ -6,6 +6,6 @@ export function shuffle(array) {
   return array;
 }
 
-export function slugify(str, options) {
-  return str.split(" ").join("-").toLowerCase() + options + Date.now();
+export function slugify({ category, difficulty }) {
+  return "quiz-" + `${category}-${difficulty}-` + Date.now();
 }
