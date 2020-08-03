@@ -29,6 +29,9 @@ function App() {
       case "increaseScore":
         draft.score++;
         return;
+      case "flashMessage":
+        draft.flashMessages.push({ text: action.value, status: action.status });
+        return;
     }
   }
 

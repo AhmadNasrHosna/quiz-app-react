@@ -52,7 +52,29 @@ function Quiz() {
     setChoosedYet(true);
     setShowStatus(true);
 
+    // Show correct message if the answer was correct
+    if (isCorrectAnswer) {
+      appDispatch({
+        type: "flashMessage",
+        value: "Correct Answer!!",
+        status: "success",
+      });
+    } else {
+      appDispatch({
+        type: "flashMessage",
+        value: "Wrong Answer!!",
+        status: "wrong",
+      });
+    }
+
     changeQuestionTimerID = setTimeout(() => {
+      // If the current displayed question have index 2,
+      // Then we don't need to increase the currentIndex value to stop re-rendering of this component
+      if (currentIndex === questions.length - 1) {
+        push(`${pathname}/statistics`);
+        return;
+      }
+
       // Increment question counter
       setQuestionCounter(questionCounter + 1);
 
@@ -64,13 +86,6 @@ function Quiz() {
       // Increment score if correct
       if (isCorrectAnswer) {
         appDispatch({ type: "increaseScore" });
-      }
-
-      // If the current displayed question have index 2,
-      // Then we don't need to increase the currentIndex value to stop re-rendering of this component
-      if (currentIndex === questions.length - 1) {
-        push(`${pathname}/statistics`);
-        return;
       }
 
       // Show next question after highlighting the results

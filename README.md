@@ -1,3 +1,12 @@
+# Quiz App
+
+# Features
+- User can select between multiple quizzes by category and difficulty.
+- Correct/Wrong message appears after clicking on an answer.
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

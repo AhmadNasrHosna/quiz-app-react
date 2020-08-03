@@ -192,7 +192,7 @@ input[type="submit"] {
   border-top: 4px solid hsl(291, 34%, 83%, 1);
 }
 input[type="submit"]:active {
-  background: hsl(291, 34%, 32%, 1)
+  background: hsl(291, 34%, 32%, 1);
 }
 
 .c-quiz-form__group:not(:first-child) {
@@ -238,8 +238,8 @@ input[type="submit"]:active {
   background: hsl(24, 78%, 63%, 1);
 }
 
-input[type=radio]:checked + label {
+input[type="radio"]:checked + label {
   background: hsl(24, 78%, 70%, 1);
-    color: #4c4c4c;
-
+  color: #4c4c4c;
 }
+
