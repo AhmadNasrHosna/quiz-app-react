@@ -56,13 +56,13 @@ function Quiz() {
     if (isCorrectAnswer) {
       appDispatch({
         type: "flashMessage",
-        value: "Correct Answer!!",
+        value: "Correct Answer!",
         status: "success",
       });
     } else {
       appDispatch({
         type: "flashMessage",
-        value: "Wrong Answer!!",
+        value: "Wrong Answer!",
         status: "wrong",
       });
     }
@@ -71,6 +71,11 @@ function Quiz() {
       // If the current displayed question have index 2,
       // Then we don't need to increase the currentIndex value to stop re-rendering of this component
       if (currentIndex === questions.length - 1) {
+        appDispatch({
+          type: "flashMessage",
+          value: "Quiz has ended!",
+          status: "success",
+        });
         push(`${pathname}/statistics`);
         return;
       }
