@@ -11,7 +11,7 @@ function Statistics() {
     title: "How to be a x developer",
     tagline: "Learn all the tips from this one post",
     cloudName: "dts7bwydo",
-    imagePublicID: "eb-template",
+    imagePublicID: "social-share-template.jpg",
     titleFont: "Tahoma",
     titleExtraConfig: "_bold",
     taglineFont: "Roboto",
