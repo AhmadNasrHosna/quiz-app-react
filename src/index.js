@@ -43,7 +43,10 @@ function App() {
         draft.flashMessages.push({ text: action.value, status: action.status });
         return;
       case "updateInitialStatistics":
-        draft.initialStatistics = action.value;
+        draft.initialStatistics = {
+          ...draft.initialStatistics,
+          ...action.value,
+        };
         return;
       default:
         return;

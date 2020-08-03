@@ -63,7 +63,7 @@ function Quiz() {
     return statistics;
   }
 
-  console.log(statistics);
+  console.log(appState.initialStatistics);
 
   // Track the answers
   function handleAnswer(answer) {
@@ -107,7 +107,6 @@ function Quiz() {
 
       // Clean the previous answer status
       setShowStatus(false);
-
       setChoosedYet(false);
 
       // Increment score if correct
