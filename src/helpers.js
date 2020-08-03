@@ -5,3 +5,7 @@ export function shuffle(array) {
   }
   return array;
 }
+
+export function slugify(str, options) {
+  return str.split(" ").join("-").toLowerCase() + options + Date.now();
+}

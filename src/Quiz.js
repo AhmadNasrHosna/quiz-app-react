@@ -1,9 +1,9 @@
 import React, { useEffect, useContext, useState } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 
 import DispatchContext from "./DispatchContext";
 import StateContext from "./StateContext";
 import Questionnaire from "./components/Questionnaire";
-import Statistics from "./components/Statistics";
 
 import { shuffle } from "./helpers";
 
@@ -11,6 +11,9 @@ const API_URL =
   "https://opentdb.com/api.php?amount=10&category=11&difficulty=easy&type=multiple";
 
 function Quiz() {
+  const { push } = useHistory();
+  const { pathname } = useLocation();
+
   const appDispatch = useContext(DispatchContext);
   const appState = useContext(StateContext);
   const [questions, setQuestions] = useState([]);
@@ -50,9 +53,6 @@ function Quiz() {
     setShowStatus(true);
 
     changeQuestionTimerID = setTimeout(() => {
-      // Show next question after highlighting the results
-      setCurrentIndex(currentIndex + 1);
-
       // Increment question counter
       setQuestionCounter(questionCounter + 1);
 
@@ -63,39 +63,43 @@ function Quiz() {
 
       // Increment score if correct
       if (isCorrectAnswer) {
-        setScore(score + 1);
+        appDispatch({ type: "increaseScore" });
       }
+
+      // If the current displayed question have index 2,
+      // Then we don't need to increase the currentIndex value to stop re-rendering of this component
+      if (currentIndex === questions.length - 1) {
+        push(`${pathname}/statistics`);
+        return;
+      }
+
+      // Show next question after highlighting the results
+      setCurrentIndex(currentIndex + 1);
 
       clearTimeout(changeQuestionTimerID);
     }, 1000);
   }
 
-  if (currentIndex === questions.length) {
-    return <Statistics score={score} />;
+  if (!questions.length) {
+    return <p>Loading...</p>;
   }
 
   return (
     <>
       <div className="c-quiz">
-        {questions.length ? (
-          <>
-            <div className="c-track">
-              <span>{questionCounter}</span>/ {questions.length}
-            </div>
-            <Questionnaire
-              showStatus={showStatus}
-              question={questions[currentIndex]}
-              questionCounter={questionCounter}
-              handleAnswer={handleAnswer}
-              chooseYet={choosedYet}
-            />
-            <div className="c-score">
-              <p>{score}</p>
-            </div>
-          </> //
-        ) : (
-          <p>Loading...</p>
-        )}
+        <div className="c-track">
+          <span>{questionCounter}</span>/ {questions.length}
+        </div>
+        <Questionnaire
+          showStatus={showStatus}
+          question={questions[currentIndex]}
+          questionCounter={questionCounter}
+          handleAnswer={handleAnswer}
+          chooseYet={choosedYet}
+        />
+        <div className="c-score">
+          <p>{appState.score}</p>
+        </div>
       </div>
     </> //
   );
