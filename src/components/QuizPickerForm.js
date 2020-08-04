@@ -3,6 +3,7 @@ import { slugify } from "../helpers";
 import { useHistory } from "react-router-dom";
 import DispatchContext from "../DispatchContext";
 import StateContext from "../StateContext";
+import { Helmet } from "react-helmet";
 
 function QuizPickerForm() {
   const { push } = useHistory();
@@ -63,77 +64,82 @@ function QuizPickerForm() {
   }
 
   return (
-    <form className="c-quiz-form" onSubmit={(e) => handleQuizFormSubmit(e)}>
-      <div className="c-quiz-form__group">
-        <input
-          type="text"
-          name="username"
-          id="username"
-          placeholder="Enter Your Name"
-          onChange={(e) => setUsername(e.currentTarget.value)}
-          defaultValue={username}
-          required
-          autoFocus={appState.loggedIn ? false : true}
-        />
-      </div>
-      <div
-        className="c-quiz-form__group c-quiz-form__category"
-        onChange={(e) =>
-          setQuizOptions({
-            ...quizOptions,
-            category: e.target.value,
-          })
-        }
-      >
-        <div className="c-radio">
+    <>
+      <Helmet>
+        <title>Quiz App - Dialymealz</title>
+      </Helmet>
+      <form className="c-quiz-form" onSubmit={(e) => handleQuizFormSubmit(e)}>
+        <div className="c-quiz-form__group">
           <input
-            type="radio"
-            id="history"
-            name="category"
+            type="text"
+            name="username"
+            id="username"
+            placeholder="Enter Your Name"
+            onChange={(e) => setUsername(e.currentTarget.value)}
+            defaultValue={username}
             required
-            value="23"
+            autoFocus={appState.loggedIn ? false : true}
           />
-          <label htmlFor="history">History</label>
         </div>
-        <div className="c-radio">
-          <input type="radio" id="computers" name="category" value="18" />
-          <label htmlFor="computers">Computers</label>
+        <div
+          className="c-quiz-form__group c-quiz-form__category"
+          onChange={(e) =>
+            setQuizOptions({
+              ...quizOptions,
+              category: e.target.value,
+            })
+          }
+        >
+          <div className="c-radio">
+            <input
+              type="radio"
+              id="history"
+              name="category"
+              required
+              value="23"
+            />
+            <label htmlFor="history">History</label>
+          </div>
+          <div className="c-radio">
+            <input type="radio" id="computers" name="category" value="18" />
+            <label htmlFor="computers">Computers</label>
+          </div>
+          <div className="c-radio">
+            <input type="radio" id="movies" name="category" value="11" />
+            <label htmlFor="movies">Movies</label>
+          </div>
         </div>
-        <div className="c-radio">
-          <input type="radio" id="movies" name="category" value="11" />
-          <label htmlFor="movies">Movies</label>
+        <div
+          className="c-quiz-form__group c-quiz-form__difficulty"
+          onChange={(e) =>
+            setQuizOptions({
+              ...quizOptions,
+              difficulty: e.target.value,
+            })
+          }
+        >
+          <div className="c-radio">
+            <input
+              type="radio"
+              id="easy"
+              name="difficulty"
+              value="easy"
+              required
+            />
+            <label htmlFor="easy">Easy</label>
+          </div>
+          <div className="c-radio">
+            <input type="radio" id="medium" name="difficulty" value="medium" />
+            <label htmlFor="medium">Medium</label>
+          </div>
+          <div className="c-radio">
+            <input type="radio" id="hard" name="difficulty" value="hard" />
+            <label htmlFor="hard">Hard</label>
+          </div>
         </div>
-      </div>
-      <div
-        className="c-quiz-form__group c-quiz-form__difficulty"
-        onChange={(e) =>
-          setQuizOptions({
-            ...quizOptions,
-            difficulty: e.target.value,
-          })
-        }
-      >
-        <div className="c-radio">
-          <input
-            type="radio"
-            id="easy"
-            name="difficulty"
-            value="easy"
-            required
-          />
-          <label htmlFor="easy">Easy</label>
-        </div>
-        <div className="c-radio">
-          <input type="radio" id="medium" name="difficulty" value="medium" />
-          <label htmlFor="medium">Medium</label>
-        </div>
-        <div className="c-radio">
-          <input type="radio" id="hard" name="difficulty" value="hard" />
-          <label htmlFor="hard">Hard</label>
-        </div>
-      </div>
-      <input type="submit" value="Play" />
-    </form>
+        <input type="submit" value="Play" />
+      </form>
+    </>
   );
 }
 
