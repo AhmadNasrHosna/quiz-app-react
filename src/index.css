@@ -5,7 +5,7 @@ body {
     "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #222;
+  color: hsl(110, 20%, 17%, 1);
   line-height: 1.7;
   background: rgb(110, 210, 93);
   background: linear-gradient(
@@ -32,6 +32,10 @@ h1 {
   letter-spacing: -0.04em;
   margin-top: 0;
   color: #fff;
+}
+
+h2 {
+  color: hsl(285, 32%, 37%);
 }
 
 .o-page {
@@ -250,4 +254,72 @@ input[type="submit"]:active {
 input[type="radio"]:checked + label {
   background: hsl(24, 78%, 70%, 1);
   color: #4c4c4c;
+}
+
+.c-statistics {
+  background: hsl(0, 0%, 100%, 0.75);
+  padding: 1rem;
+  max-width: 770px;
+  margin: 0 auto;
+  border-radius: 6px;
+  backdrop-filter: blur(1px);
+}
+
+.c-statistics h2 {
+  margin: 0 0 -8px;
+  font-size: 36px;
+  letter-spacing: -0.04em;
+}
+
+.c-statistics p {
+  margin: 0 0 0.5rem;
+}
+
+.c-statistics p:last-child {
+  margin: 1.75rem 0 0;
+  text-align: right;
+}
+
+.c-statistics > svg {
+  width: 150px;
+  height: 150px;
+}
+
+@media (min-width: 48em) {
+  .c-statistics {
+    text-align: left;
+  }
+
+  .c-statistics > svg {
+    width: 200px;
+    height: 200px;
+    float: left;
+    margin: 0 1rem 5rem 0;
+  }
+}
+
+.c-share {
+  display: flex;
+  align-items: center;
+}
+
+.c-share__list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.c-share__list-item a {
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.c-share__list-item:first-child {
+  margin: 0 0.5rem;
 }

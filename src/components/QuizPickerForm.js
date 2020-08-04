@@ -7,13 +7,12 @@ import { Helmet } from "react-helmet";
 
 function QuizPickerForm() {
   const { push } = useHistory();
-  const [username, setUsername] = useState("");
   const appDispatch = useContext(DispatchContext);
   const appState = useContext(StateContext);
-
+  const [username, setUsername] = useState("");
   const [quizOptions, setQuizOptions] = useState({
-    category: "23",
-    difficulty: "easy",
+    category: "",
+    difficulty: "",
   });
 
   useEffect(() => {
@@ -139,7 +138,7 @@ function QuizPickerForm() {
         </div>
         <input type="submit" value="Play" />
       </form>
-    </>
+    </> //
   );
 }
 

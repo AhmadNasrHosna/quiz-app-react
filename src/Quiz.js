@@ -25,7 +25,7 @@ function Quiz() {
 
   // Send off a network request to API to get the questions
   useEffect(() => {
-    const API_URL = `https://opentdb.com/api.php?amount=10&category=${appState.initialStatistics.category[0]}&difficulty=${appState.initialStatistics.difficulty}&type=multiple`;
+    const API_URL = `https://opentdb.com/api.php?amount=2&category=${appState.initialStatistics.category[0]}&difficulty=${appState.initialStatistics.difficulty}&type=multiple`;
 
     fetch(API_URL)
       .then((res) => res.json())

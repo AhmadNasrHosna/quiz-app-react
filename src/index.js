@@ -61,10 +61,15 @@ function App() {
   const [state, dispatch] = useImmerReducer(reducer, baseState);
 
   useEffect(() => {
-    if (state.initialStatistics.quizId !== "") {
-      firebase.firestore().collection(state.initialStatistics.quizId).add({
-        statistics: state.initialStatistics,
-      });
+    if (state.initialStatistics.finished) {
+      firebase
+        .firestore()
+        .collection("quizzes")
+        .add({
+          [state.initialStatistics.quizId]: {
+            statistics: state.initialStatistics,
+          },
+        });
     }
 
     if (state.loggedIn) {
@@ -72,7 +77,7 @@ function App() {
     } else {
       localStorage.removeItem("quizappLoggedInUser");
     }
-  }, [state.initialStatistics.quizId, state.initialStatistics.loggedIn]);
+  }, [state.initialStatistics.loggedIn, state.initialStatistics.finished]);
 
   return (
     <StateContext.Provider value={state}>

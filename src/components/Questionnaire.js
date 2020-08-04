@@ -25,7 +25,7 @@ function Questionnaire({
         {answers.map((answer, i) => (
           <button
             key={i}
-            className={`c-answer  ${
+            className={`c-answer ${
               showStatus ? getAnswerStatusClassName(answer) : ""
             }`}
             answer={answer}
