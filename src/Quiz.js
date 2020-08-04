@@ -21,7 +21,6 @@ function Quiz() {
   const [questionCounter, setQuestionCounter] = useState(1);
   const [showStatus, setShowStatus] = useState(false);
   const [choosedYet, setChoosedYet] = useState(false);
-  const statistics = useStatistics();
 
   // Send off a network request to API to get the questions
   useEffect(() => {
@@ -44,25 +43,6 @@ function Quiz() {
         setQuestions(questionsWithShuffledAnswers);
       });
   }, []);
-
-  function useStatistics() {
-    const [statistics, setStatistics] = useState([]);
-
-    useEffect(() => {
-      firebase
-        .firestore()
-        .collection(quizId)
-        .onSnapshot((snapshot) => {
-          const newStatistics = snapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
-          setStatistics(newStatistics);
-        });
-    }, []);
-
-    return statistics;
-  }
 
   // Track the answers
   function handleAnswer(answer) {

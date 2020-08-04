@@ -77,7 +77,7 @@ function App() {
     } else {
       localStorage.removeItem("quizappLoggedInUser");
     }
-  }, [state.initialStatistics.loggedIn, state.initialStatistics.finished]);
+  }, [state.loggedIn, state.initialStatistics.finished]);
 
   return (
     <StateContext.Provider value={state}>
@@ -98,11 +98,7 @@ function App() {
                   )}
                 </Route>
                 <Route path="/quiz/:quizId/statistics">
-                  {!state.initialStatistics.finished ? (
-                    <Redirect to="/" />
-                  ) : (
-                    <Statistics />
-                  )}
+                  <Statistics />
                 </Route>
               </Switch>
             </main>

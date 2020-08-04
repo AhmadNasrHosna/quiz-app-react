@@ -5,12 +5,12 @@ function ShareIcons({ title }) {
   const quizTitle = title;
 
   return (
-    <div class="c-share">
+    <div className="c-share">
       <span>
         <strong>Share on</strong>
       </span>
-      <ul class="c-share__list">
-        <li class="c-share__list-item">
+      <ul className="c-share__list">
+        <li className="c-share__list-item">
           <a
             href={`https://twitter.com/intent/tweet/?text=${encodeURIComponent(
               quizTitle
@@ -34,7 +34,7 @@ function ShareIcons({ title }) {
           </a>
         </li>
 
-        <li class="c-share__list-item">
+        <li className="c-share__list-item">
           <a
             href={`https://facebook.com/sharer/sharer.php?u=${quizResultURL}`}
             aria-label="Facebook"
