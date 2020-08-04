@@ -5,10 +5,35 @@ import getShareImage from "@jlengstorf/get-share-image";
 import { Helmet } from "react-helmet";
 import ShareIcons from "./ShareIcons";
 import firebase from "../base";
+import Quiz from "../Quiz";
 
 function Statistics() {
-  const [quizStatistics, setQuizStatistics] = useState({});
+  const [quizStatistics, setQuizStatistics] = useState(null);
   const { quizId } = useParams();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const quizzes = await firebase.firestore().collection("quizzes").get();
+      const quiz = quizzes.docs
+        .map((doc) => doc.data())
+        .filter((quiz) => quiz[quizId]);
+
+      if (quiz.length === 0) {
+        setQuizStatistics(undefined);
+      } else if (quiz.length === 1) {
+        setQuizStatistics(quiz[0][quizId].statistics);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (quizStatistics === null) {
+    return <p>Loading...</p>;
+  }
+
+  if (quizStatistics === undefined) {
+    return <p>404</p>;
+  }
 
   const socialImage = getShareImage({
     title: `${quizStatistics.category[1]} Quiz Score:`,
@@ -18,22 +43,6 @@ function Statistics() {
     textColor: "fff",
     titleExtraConfig: "_bold",
   });
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const quizzes = await firebase.firestore().collection("quizzes").get();
-      const quiz = quizzes.docs
-        .map((doc) => doc.data())
-        .filter((quiz) => quiz[quizId]);
-      setQuizStatistics(quiz["0"].statistics);
-    };
-    fetchData();
-  }, []);
-  console.log(quizStatistics);
-
-  if (!quizStatistics) {
-    return <p>404</p>;
-  }
 
   return (
     <>

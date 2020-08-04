@@ -82,6 +82,7 @@ function Quiz() {
           type: "updateInitialStatistics",
           value: {
             finished: true,
+            score: appState.initialStatistics.score,
             timeEnd: Date.now(),
             time: millisToMinutesAndSeconds(
               Date.now() - appState.initialStatistics.timeStart
