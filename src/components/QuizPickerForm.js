@@ -1,16 +1,25 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { slugify } from "../helpers";
 import { useHistory } from "react-router-dom";
 import DispatchContext from "../DispatchContext";
+import StateContext from "../StateContext";
 
 function QuizPickerForm() {
   const { push } = useHistory();
   const [username, setUsername] = useState("");
   const appDispatch = useContext(DispatchContext);
+  const appState = useContext(StateContext);
+
   const [quizOptions, setQuizOptions] = useState({
     category: "23",
     difficulty: "easy",
   });
+
+  useEffect(() => {
+    if (appState.loggedIn) {
+      setUsername(appState.user.username);
+    }
+  }, []);
 
   function getCategoryName() {
     switch (quizOptions.category) {
@@ -27,7 +36,7 @@ function QuizPickerForm() {
 
   function handleQuizFormSubmit(e) {
     e.preventDefault();
-    const quizId = slugify(quizOptions);
+    const quizId = slugify(getCategoryName(), quizOptions.difficulty);
 
     appDispatch({
       type: "updateInitialStatistics",
@@ -41,10 +50,12 @@ function QuizPickerForm() {
       },
     });
 
+    appDispatch({ type: "login", data: username });
+
     // Ready? message
     appDispatch({
       type: "flashMessage",
-      value: "Are you ready? :)",
+      value: `Welcome, ${username}! Are you ready? :)`,
       status: "success",
     });
 
@@ -62,7 +73,7 @@ function QuizPickerForm() {
           onChange={(e) => setUsername(e.currentTarget.value)}
           defaultValue={username}
           required
-          autoFocus
+          autoFocus={appState.loggedIn ? false : true}
         />
       </div>
       <div

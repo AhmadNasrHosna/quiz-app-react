@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { useImmerReducer } from "use-immer";
 
 import StateContext from "./StateContext";
@@ -19,8 +19,8 @@ import "./index.css";
 
 function App() {
   const baseState = {
-    flashMessages: [],
-    username: "",
+    loggedIn: Boolean(localStorage.getItem("quizappLoggedInUser")),
+    user: JSON.parse(localStorage.getItem("quizappLoggedInUser")) || {},
     initialStatistics: {
       username: "",
       category: "",
@@ -33,9 +33,14 @@ function App() {
       quizId: "",
       score: 0,
     },
+    flashMessages: [],
   };
   function reducer(draft, action) {
     switch (action.type) {
+      case "login":
+        draft.loggedIn = true;
+        draft.user.username = action.data;
+        return;
       case "increaseScore":
         draft.initialStatistics.score += 1;
         return;
@@ -54,7 +59,6 @@ function App() {
   }
 
   const [state, dispatch] = useImmerReducer(reducer, baseState);
-  console.log(state.initialStatistics);
 
   useEffect(() => {
     if (state.initialStatistics.quizId !== "") {
@@ -62,9 +66,13 @@ function App() {
         statistics: state.initialStatistics,
       });
     }
-  }, [state.initialStatistics.quizId]);
 
-  console.log(state.initialStatistics);
+    if (state.loggedIn) {
+      localStorage.setItem("quizappLoggedInUser", JSON.stringify(state.user));
+    } else {
+      localStorage.removeItem("quizappLoggedInUser");
+    }
+  }, [state.initialStatistics.quizId, state.initialStatistics.loggedIn]);
 
   return (
     <StateContext.Provider value={state}>
@@ -77,8 +85,20 @@ function App() {
             <main className="o-main">
               <Switch>
                 <Route path="/" exact component={QuizPickerForm} />
-                <Route path="/quiz/:quizId" exact component={Quiz} />
-                <Route path="/quiz/:quizId/statistics" component={Statistics} />
+                <Route path="/quiz/:quizId" exact>
+                  {!state.initialStatistics.quizId ? (
+                    <Redirect to="/" />
+                  ) : (
+                    <Quiz />
+                  )}
+                </Route>
+                <Route path="/quiz/:quizId/statistics">
+                  {!state.initialStatistics.finished ? (
+                    <Redirect to="/" />
+                  ) : (
+                    <Statistics />
+                  )}
+                </Route>
               </Switch>
             </main>
             <Footer />

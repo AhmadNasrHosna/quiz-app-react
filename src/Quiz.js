@@ -5,8 +5,9 @@ import DispatchContext from "./DispatchContext";
 import StateContext from "./StateContext";
 import Questionnaire from "./components/Questionnaire";
 
-import { shuffle } from "./helpers";
+import { shuffle, millisToMinutesAndSeconds } from "./helpers";
 import firebase from "./base";
+import { Helmet } from "react-helmet";
 
 function Quiz() {
   const { push } = useHistory();
@@ -22,10 +23,10 @@ function Quiz() {
   const [choosedYet, setChoosedYet] = useState(false);
   const statistics = useStatistics();
 
-  const API_URL = `https://opentdb.com/api.php?amount=10&category=${appState.initialStatistics.category[0]}&difficulty=${appState.initialStatistics.difficulty}&type=multiple`;
-
   // Send off a network request to API to get the questions
   useEffect(() => {
+    const API_URL = `https://opentdb.com/api.php?amount=10&category=${appState.initialStatistics.category[0]}&difficulty=${appState.initialStatistics.difficulty}&type=multiple`;
+
     fetch(API_URL)
       .then((res) => res.json())
       .then(({ results }) => {
@@ -63,8 +64,6 @@ function Quiz() {
     return statistics;
   }
 
-  console.log(appState.initialStatistics);
-
   // Track the answers
   function handleAnswer(answer) {
     const isCorrectAnswer = answer === questions[currentIndex].correct_answer;
@@ -98,7 +97,20 @@ function Quiz() {
           value: "Quiz has ended!",
           status: "success",
         });
+
+        appDispatch({
+          type: "updateInitialStatistics",
+          value: {
+            finished: true,
+            timeEnd: Date.now(),
+            time: millisToMinutesAndSeconds(
+              Date.now() - appState.initialStatistics.timeStart
+            ),
+          },
+        });
+
         push(`${pathname}/statistics`);
+
         return;
       }
 
@@ -127,6 +139,14 @@ function Quiz() {
 
   return (
     <>
+      <Helmet>
+        <title>
+          {`${appState.initialStatistics.category[1]} - ${
+            appState.initialStatistics.difficulty.split("")[0].toUpperCase() +
+            appState.initialStatistics.difficulty.split("").splice(1).join("")
+          } Quiz.`}
+        </title>
+      </Helmet>
       <div className="c-quiz">
         <div className="c-track">
           <span>{questionCounter}</span>/ {questions.length}
@@ -142,7 +162,7 @@ function Quiz() {
           <p>{appState.initialStatistics.score}</p>
         </div>
       </div>
-      <Link to="/">Choose another challenge?</Link>
+      <Link to="/">Choose another quiz?</Link>
     </> //
   );
 }
