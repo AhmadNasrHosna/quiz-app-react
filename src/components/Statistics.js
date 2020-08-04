@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, Redirect } from "react-router-dom";
 import StateContext from "../StateContext";
 import getShareImage from "@jlengstorf/get-share-image";
 import { Helmet } from "react-helmet";
@@ -32,7 +32,7 @@ function Statistics() {
   }
 
   if (quizStatistics === undefined) {
-    return <p>404</p>;
+    return <Redirect to="/" />;
   }
 
   const socialImage = getShareImage({
