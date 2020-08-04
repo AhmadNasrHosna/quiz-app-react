@@ -77,7 +77,7 @@ function Quiz() {
           value: "Quiz has ended!",
           status: "success",
         });
-
+        console.log(appState.initialStatistics);
         appDispatch({
           type: "updateInitialStatistics",
           value: {
