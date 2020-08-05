@@ -5,11 +5,11 @@ import getShareImage from "@jlengstorf/get-share-image";
 import { Helmet } from "react-helmet";
 import ShareIcons from "./ShareIcons";
 import firebase from "../base";
-import Quiz from "../Quiz";
 
 function Statistics() {
   const [quizStatistics, setQuizStatistics] = useState(null);
   const { quizId } = useParams();
+  const appState = useContext(StateContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,23 +26,40 @@ function Statistics() {
     };
     fetchData();
   }, []);
-
-  if (quizStatistics === null) {
-    return <p>Loading...</p>;
-  }
-
-  if (quizStatistics === undefined) {
-    return <Redirect to="/" />;
-  }
-
+  console.log(appState.initialStatistics.category[1]);
   const socialImage = getShareImage({
-    title: `${quizStatistics.category[1]} Quiz Score:`,
-    tagline: `${quizStatistics.score}/10`,
+    title: `${appState.initialStatistics.category[1]} Quiz Score:`,
+    tagline: `${appState.initialStatistics.score}/10`,
     cloudName: "dts7bwydo",
     imagePublicID: "social-share-template",
     textColor: "fff",
     titleExtraConfig: "_bold",
   });
+
+  if (quizStatistics === null) {
+    return (
+      <>
+        <Helmet>
+          <meta name="image" content={socialImage} />
+
+          {/* OpenGraph tags */}
+          <meta property="og:url" content={window.location.href} />
+          <meta
+            property="og:title"
+            content={`${appState.initialStatistics.category[1]} Quiz Score: ${appState.initialStatistics.score}/10`}
+          />
+          <meta property="og:image" content={socialImage} />
+          {/* Twitter Card tags */}
+          <meta name="twitter:card" content={socialImage} />
+        </Helmet>
+        <p>Loading...</p>
+      </> //
+    );
+  }
+
+  if (quizStatistics === undefined) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <>

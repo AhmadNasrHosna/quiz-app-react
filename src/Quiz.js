@@ -72,12 +72,14 @@ function Quiz() {
       // If the current displayed question have index 2,
       // Then we don't need to increase the currentIndex value to stop re-rendering of this component
       if (currentIndex === questions.length - 1) {
+        // Increment score if correct
+
         appDispatch({
           type: "flashMessage",
           value: "Quiz has ended!",
           status: "success",
         });
-        console.log(appState.initialStatistics);
+
         appDispatch({
           type: "updateInitialStatistics",
           value: {
