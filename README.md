@@ -1,20 +1,17 @@
 # Quiz App
 
-## Features
+### Features
 - User can select between multiple quizzes by category and difficulty.
 - Correct/Wrong message appears after clicking on an answer.
 - [Tried](https://github.com/ahmedhosna95/quiz-app-nextjs) to make user share his results by using Next.js to generate a server-rendered page for the quiz statistics/results but I couldn't go farhter that stage: ![share-on-facebook][sharer.png].
 - user can login with thier name for only one.
 - Display the time duration that user took to finish the quizzes.
 
-
-## Tech
-- The app is built with reate-react-app
+### Tech
 - State Managing using Context API with React Hooks and Immer
 - Persisting the quizzes data & statistics with Firebase
 
-
-
+~
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
