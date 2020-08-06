@@ -3,6 +3,11 @@
 # Features
 - User can select between multiple quizzes by category and difficulty.
 - Correct/Wrong message appears after clicking on an answer.
+- [Tried](https://github.com/ahmedhosna95/quiz-app-nextjs) to make user share his results by using Next.js but I couldn't go farhter that 
+
+#Teck
+- Context API with React Hooks and Immer
+- I tryied
 
 
 
