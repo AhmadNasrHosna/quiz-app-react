@@ -4,7 +4,7 @@
 - User can select between multiple quizzes by category and difficulty.
 - Correct/Wrong message appears after clicking on an answer.
 - [Tried](https://github.com/ahmedhosna95/quiz-app-nextjs) to make users share their results using Next.js to generate a server-rendered page for the quiz statistics/results but I couldn't go farther than this [stage](https://github.com/ahmedhosna95/ahmed-nasr-dailymealz-react-interview-task/blob/master/sharer.png?raw=true) >> [https://quiz-app-nu.vercel.app/](https://quiz-app-nu.vercel.app/).
-- user can login with their name for only one.
+- user can login with their name for only once.
 - Display the time duration that user took to finish the quizzes.
 
 ### Tech
